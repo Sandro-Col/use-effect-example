@@ -4,18 +4,23 @@ import Card from '../card/card.component';
 
 const UseEffectExample = () => {
   const [user, setUser] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('Bret');
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    const fetchFunc = async () => {
-      const response = await fetch(
-        `https://jsonplaceholder.typicode.com/users?username=${searchQuery}`
-      );
-      const resJson = await response.json();
-      setUser(resJson[0]);
-    };
+    if(searchQuery.length > 0 ) {
+      console.log(searchQuery);
+      const fetchFunc = async () => {
+        const response = await fetch(
+          `https://jsonplaceholder.typicode.com/users?username=${searchQuery}`
+        );
+        const resJson = await response.json();
+        setUser(resJson[0]);
+        console.log(resJson[0]);
+      };
 
-    fetchFunc();
+      fetchFunc();
+    }
+    
   }, [searchQuery]);
 
   return (
